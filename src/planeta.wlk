@@ -34,5 +34,7 @@ class Planeta {
 	
 	method buenaDefensa() = self.valorInicialDefensivo() + galaxia.nvEnergiaBasico() >= 8
 	
+	method construirEdificio(){ edificios += 1}
 	
+	method habitantesUtiles() = habitantes.filter({h=>h.esUtil(self)})
 }

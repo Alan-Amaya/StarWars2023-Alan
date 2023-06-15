@@ -31,6 +31,7 @@ class Atleta inherits Gente {
 	
 	override method darTributos(planeta){ planeta.fundarMuseo()}
 	
+	method esUtil(planeta) = planeta.necesitaReforzarse() 
 }
 
 class Docente inherits Gente {
@@ -44,6 +45,7 @@ class Docente inherits Gente {
 	
 	override method valor() = super() + 5
 	
+	method esUtil(planeta) = !planeta.esCulto()
 }
 
 class Soldado inherits Gente {
@@ -57,4 +59,49 @@ class Soldado inherits Gente {
 	}
 	
 	override method darTributos(planeta){ planeta.construirMurallas(2)}
+	method esUtil(planeta) = planeta.potenciaReal() < 40
+}
+
+class Tecnicos inherits Gente {
+	const property publicaciones = []
+	
+	method inteligenciaDeLibros() = publicaciones.sum({p=> p.inteligenciaQueAporta()})
+	method cantLibrosUtiles() = publicaciones.filter({p=>p.utilParaDefensa()}).size()
+	method cantLibros() = publicaciones.size()
+	method sumarASuColeccion(unLibro){ publicaciones.add(unLibro) }
+	
+	override method inteligencia() = super() + self.inteligenciaDeLibros()
+	override method potencia() = super() + self.cantLibrosUtiles()
+	
+	override method darTributos(planeta){ planeta.construirEdificio(1)}
+	
+	override method esDestacado() = super() and self.cantLibros() > 3
+	
+	method sabeDelTema(unTema) = publicaciones.any({p=>p.tema() == unTema})
+	method materialSobreElTema(unTema) = publicaciones.filter({p=>p.tema() == unTema})
+	method materialMenosUtil() = publicaciones.min({p=> p.inteligenciaQueAporta()})
+	
+	method donarMaterialMenosUtil(otroTecnico){
+		otroTecnico.sumarASuColeccion(self.materialMenosUtil())
+		publicaciones.remove(self.materialMenosUtil())
+	}
+	
+	method esUtil(planeta) = planeta.habitantes().size() >= 3
+}
+
+class Agricultores inherits Gente {
+	var property experiencia
+	const property sabeDeRiego
+	
+	override method inteligencia(){
+		if (sabeDeRiego) return experiencia*2
+		else return experiencia 
+	}
+	
+	override method potencia() = 5
+	
+	override method esDestacado() = super() or (sabeDeRiego and experiencia >=5)
+	
+	method acumularExp(cant){ experiencia += cant}
+	method esUtil(planeta) = true
 }

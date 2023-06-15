@@ -1,5 +1,5 @@
 class Pistolete {
-	const property largo
+	var property largo
 	var propietario
 	
 	method potencia(){
@@ -15,7 +15,7 @@ class Espadon {
 	var propietario
 	
 	method potencia(){
-		if (propietario.edad()>=40)return peso/2
+		if (propietario.edad()>=40)return peso/2 
 		 else return 6	
 	}
 	
