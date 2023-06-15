@@ -1,11 +1,13 @@
+import gente.*
+
 class Planeta {
 	const property habitantes = []
 	var property museos
 	var property longMurallas
 	
-	method delegacionDiplimatica() = habitantes.map({ h => h.esDestacado()})
+	method delegacionDiplimatica() = habitantes.filter({ h => h.esDestacado()})
 	
-	method valorInicialDefensivo() = habitantes.sum({h => h.potencia()>=30})
+	method valorInicialDefensivo() = habitantes.count({h => h.potencia()>=30})
 	
 	method esCulto() =  museos >=2 and habitantes.all({h => h.inteligencia() >=10})
 	
@@ -21,4 +23,5 @@ class Planeta {
 	
 	method recibirTributos(){ habitantes.forEach({h=>h.darTributos(self)}) }
 	
+	method apaciguar(otroPlaneta){	habitantes.forEach( { h=>h.darTributos(otroPlaneta) } )	}
 }
