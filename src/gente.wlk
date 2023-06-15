@@ -66,7 +66,7 @@ class Tecnicos inherits Gente {
 	const property publicaciones = []
 	
 	method inteligenciaDeLibros() = publicaciones.sum({p=> p.inteligenciaQueAporta()})
-	method cantLibrosUtiles() = publicaciones.filter({p=>p.utilParaDefensa()}).size()
+	method cantLibrosUtiles() = publicaciones.count({p=>p.utilParaDefensa()})
 	method cantLibros() = publicaciones.size()
 	method sumarASuColeccion(unLibro){ publicaciones.add(unLibro) }
 	
