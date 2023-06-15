@@ -7,7 +7,9 @@ class Gente {
 		else return 8
 		}
 	
-	method esDestacado() = edad.between(25,35)	
+	method esDestacado() = edad.between(25,35)
+	
+	method darTributos(planeta){}	
 }
 
 class Atleta inherits Gente {
@@ -21,6 +23,8 @@ class Atleta inherits Gente {
 	method entrenar(dias){	masaMuscular += dias/5.truncate(0)	}
 	
 	method aprenderTecnica(){ cantTecnicas += 1}
+	
+	override method darTributos(planeta){ planeta.fundarMuseo()}
 }
 
 class Docente inherits Gente {
@@ -30,4 +34,5 @@ class Docente inherits Gente {
 	
 	override method esDestacado() = cursosDados > 3
 	
+	override method darTributos(planeta){ planeta.construirMurallas(2)}
 }
